@@ -1,0 +1,27 @@
+{
+  "name": "express-grpc-transcoder",
+  "version": "0.1.0",
+  "description": "gRPC-JSON transcoder middleware",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/halomelabs/express-grpc-transcoder.git"
+  },
+  "keywords": [
+    "expressjs",
+    "middleware",
+    "grpc-gateway",
+    "grpc-transcoder",
+    "http-grpc",
+    "json-grpc"
+  ],
+  "author": "Hiep Thai <thaichanhiep@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/halomelabs/express-grpc-transcoder/issues"
+  },
+  "homepage": "https://github.com/halomelabs/express-grpc-transcoder#readme"
+}
