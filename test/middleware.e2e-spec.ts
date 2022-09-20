@@ -17,16 +17,15 @@ describe('HelloService (e2e)', () => {
     [http, app] = await createHttpServer(3000);
     grpc = await createGrpcServer('localhost:5000');
 
-    const filepath = join(
-      process.cwd(),
-      'proto/sample/v1/services/hello.proto',
-    );
+    const filePaths = [
+      join(process.cwd(), 'proto/sample/v1/services/hello.proto'),
+    ];
     const includeDirs = [
       dirname(require.resolve('google-proto-files/package.json')),
       join(process.cwd(), './proto'),
     ];
 
-    app.use(grpcTranscoder(filepath, { includeDirs }));
+    app.use(grpcTranscoder(filePaths, { includeDirs }));
   });
 
   it('.Hello() should return expected result', async () => {

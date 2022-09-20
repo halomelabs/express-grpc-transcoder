@@ -1,20 +1,30 @@
-import { NextFunction, Request, Response } from 'express';
+import * as grpc from '@grpc/grpc-js';
+import * as ProtoLoader from '@grpc/proto-loader';
+import { Router } from 'express';
+import { get } from 'lodash';
 
 import { loadServices } from './utils/load-services';
 
 export function grpcTranscoder(
-  filepath: string,
+  filePaths: string[],
   options: { includeDirs: string[] },
-) {
-  return function (
-    request: Request,
-    response: Response,
-    next: NextFunction,
-  ): void {
-    const services = loadServices(filepath, options);
+): Router {
+  const router = Router();
 
-    console.log(services);
+  const protos = filePaths.map((p) => {
+    const packageDefinition = ProtoLoader.loadSync(p, {
+      includeDirs: options.includeDirs,
+    });
+    return grpc.loadPackageDefinition(packageDefinition);
+  });
 
-    next();
-  };
+  for (const filePath of filePaths) {
+    const services = loadServices(filePath, options);
+    for (const service of services) {
+      const constructor = get(protos[0], service.key);
+      console.log(constructor);
+    }
+  }
+
+  return router;
 }
