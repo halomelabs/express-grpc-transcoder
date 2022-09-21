@@ -2,7 +2,7 @@
   "name": "express-grpc-transcoder",
   "version": "0.2.0",
   "description": "gRPC-JSON transcoder middleware",
-  "main": "index.js",
+  "main": "dist/index.js",
   "files": [
     "dist"
   ],
