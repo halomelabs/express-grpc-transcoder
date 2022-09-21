@@ -2,30 +2,30 @@ syntax = "proto3";
 
 package sample.v1;
 
-message SayHelloRequest {
+message PostRequest {
   string request_id = 1;
   string name = 2;
 }
 
-message SayHelloResponse {
+message PostResponse {
   string request_id = 1;
   string message = 2;
 }
 
-message GetInfoRequest {
+message GetRequest {
   string request_id = 1;
 }
 
-message GetInfoResponse {
+message GetResponse {
   string request_id = 1;
   string server_name = 2;
 }
 
-message RemoveUserRequest {
+message DeleteRequest {
   string request_id = 1;
 }
 
-message RemoveUserResponse {
+message DeleteResponse {
   string request_id = 1;
   bool success = 2;
 }

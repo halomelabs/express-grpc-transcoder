@@ -10,22 +10,22 @@ import "google/protobuf/empty.proto";
 import "sample/v1/hello.proto";
 
 service Hello {
-  rpc Hello (SayHelloRequest) returns (SayHelloResponse) {
+  rpc Get (GetRequest) returns (GetResponse) {
     option (google.api.http) = {
-      post: "/v1/say-hello/{request_id}"
+      get: "/v1/get/{request_id}"
+    };
+  }
+
+  rpc Post (PostRequest) returns (PostResponse) {
+    option (google.api.http) = {
+      post: "/v1/post/{request_id}"
       body: "*"
     };
   }
 
-  rpc GetInfo (GetInfoRequest) returns (GetInfoResponse) {
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {
     option (google.api.http) = {
-      get: "/v1/get-info/{request_id}"
-    };
-  }
-
-  rpc RemoveUser(RemoveUserRequest) returns (RemoveUserResponse) {
-    option (google.api.http) = {
-      delete: "/v1/remove-user/{request_id}"
+      delete: "/v1/delete/{request_id}"
     };
   }
 

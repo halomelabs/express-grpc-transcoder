@@ -36,7 +36,7 @@ describe('HelloService (e2e)', () => {
     const requestId = uuid();
 
     return request(http)
-      .get(`/v1/get-info/${requestId}`)
+      .get(`/v1/get/${requestId}`)
       .then(({ statusCode, body }) => {
         expect(statusCode).toEqual(200);
         expect(body).toEqual({ requestId, serverName: 'foo' });
@@ -47,7 +47,7 @@ describe('HelloService (e2e)', () => {
     const requestId = uuid();
 
     return request(http)
-      .post(`/v1/say-hello/${requestId}`)
+      .post(`/v1/post/${requestId}`)
       .send({ name: 'world' })
       .then(({ statusCode, body }) => {
         expect(statusCode).toEqual(200);
@@ -59,7 +59,7 @@ describe('HelloService (e2e)', () => {
     const requestId = uuid();
 
     return request(http)
-      .del(`/v1/remove-user/${requestId}`)
+      .del(`/v1/delete/${requestId}`)
       .then(({ statusCode, body }) => {
         expect(statusCode).toEqual(200);
         expect(body).toEqual({ requestId, success: true });

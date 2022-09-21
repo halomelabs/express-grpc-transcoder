@@ -126,7 +126,7 @@ export function grpcTranscoder(
                   .json({ code: err.code, message: err.message });
               }
 
-              res.json(result);
+              res.status(200).json(result);
             },
           );
         };
