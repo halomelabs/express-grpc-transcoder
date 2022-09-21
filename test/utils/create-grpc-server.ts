@@ -4,15 +4,35 @@ import * as ProtoLoader from '@grpc/proto-loader';
 import { dirname, join } from 'path';
 
 import { ProtoGrpcType } from '../typings/hello';
-import { HelloRequest } from '../typings/sample/v1/HelloRequest';
-import { HelloResponse } from '../typings/sample/v1/HelloResponse';
+import { GetInfoRequest } from '../typings/sample/v1/GetInfoRequest';
+import { GetInfoResponse } from '../typings/sample/v1/GetInfoResponse';
+import { RemoveUserRequest } from '../typings/sample/v1/RemoveUserRequest';
+import { RemoveUserResponse } from '../typings/sample/v1/RemoveUserResponse';
+import { SayHelloRequest } from '../typings/sample/v1/SayHelloRequest';
+import { SayHelloResponse } from '../typings/sample/v1/SayHelloResponse';
 
 function HelloImp(
-  call: ServerUnaryCall<HelloRequest, HelloResponse>,
-  callback: sendUnaryData<HelloResponse>,
+  call: ServerUnaryCall<SayHelloRequest, SayHelloResponse>,
+  callback: sendUnaryData<SayHelloResponse>,
 ) {
-  const name = call.request.name;
-  callback(null, { message: `hello ${name}` });
+  callback(null, {
+    requestId: call.request.requestId,
+    message: `hello ${call.request.name}`,
+  });
+}
+
+function GetInfoImp(
+  call: ServerUnaryCall<GetInfoRequest, GetInfoResponse>,
+  callback: sendUnaryData<GetInfoResponse>,
+) {
+  callback(null, { requestId: call.request.requestId, serverName: 'foo' });
+}
+
+function RemoveUserImp(
+  call: ServerUnaryCall<RemoveUserRequest, RemoveUserResponse>,
+  callback: sendUnaryData<RemoveUserResponse>,
+) {
+  callback(null, { requestId: call.request.requestId, success: true });
 }
 
 export async function createGrpcServer(host: string): Promise<grpc.Server> {
@@ -32,6 +52,8 @@ export async function createGrpcServer(host: string): Promise<grpc.Server> {
 
   server.addService(proto.sample.v1.services.Hello.service, {
     Hello: HelloImp,
+    GetInfo: GetInfoImp,
+    RemoveUser: RemoveUserImp,
   });
 
   return new Promise((resolve, reject) => {

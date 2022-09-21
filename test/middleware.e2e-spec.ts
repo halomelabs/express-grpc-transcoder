@@ -1,4 +1,6 @@
 import * as grpc from '@grpc/grpc-js';
+import * as bodyParser from 'body-parser';
+import { randomUUID as uuid } from 'crypto';
 import * as express from 'express';
 import * as http from 'http';
 import { dirname, join } from 'path';
@@ -25,15 +27,42 @@ describe('HelloService (e2e)', () => {
       join(process.cwd(), './proto'),
     ];
 
-    app.use(grpcTranscoder(filePaths, { includeDirs }));
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(grpcTranscoder(filePaths, 'localhost:5000', { includeDirs }));
   });
 
-  it('.Hello() should return expected result', async () => {
+  it('GET request should return expected result', async () => {
+    const requestId = uuid();
+
     return request(http)
-      .post('/hello')
+      .get(`/v1/get-info/${requestId}`)
+      .then(({ statusCode, body }) => {
+        expect(statusCode).toEqual(200);
+        expect(body).toEqual({ requestId, serverName: 'foo' });
+      });
+  });
+
+  it('POST request should return expected result', async () => {
+    const requestId = uuid();
+
+    return request(http)
+      .post(`/v1/say-hello/${requestId}`)
       .send({ name: 'world' })
-      .then(({ body }) => {
-        expect(body.message).toEqual('hello world');
+      .then(({ statusCode, body }) => {
+        expect(statusCode).toEqual(200);
+        expect(body).toEqual({ requestId, message: 'hello world' });
+      });
+  });
+
+  it('DELETE request should return expected result', async () => {
+    const requestId = uuid();
+
+    return request(http)
+      .del(`/v1/remove-user/${requestId}`)
+      .then(({ statusCode, body }) => {
+        expect(statusCode).toEqual(200);
+        expect(body).toEqual({ requestId, success: true });
       });
   });
 

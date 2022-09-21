@@ -3,15 +3,29 @@ syntax = "proto3";
 package sample.v1.services;
 
 import "google/api/annotations.proto";
+import "google/api/client.proto";
 import "google/api/httpbody.proto";
 import "google/protobuf/empty.proto";
 
 import "sample/v1/hello.proto";
 
 service Hello {
-  rpc Hello (HelloRequest) returns (HelloResponse) {
+  rpc Hello (SayHelloRequest) returns (SayHelloResponse) {
     option (google.api.http) = {
-      post: "/hello"
+      post: "/v1/say-hello/{request_id}"
+      body: "*"
+    };
+  }
+
+  rpc GetInfo (GetInfoRequest) returns (GetInfoResponse) {
+    option (google.api.http) = {
+      get: "/v1/get-info/{request_id}"
+    };
+  }
+
+  rpc RemoveUser(RemoveUserRequest) returns (RemoveUserResponse) {
+    option (google.api.http) = {
+      delete: "/v1/remove-user/{request_id}"
     };
   }
 }
