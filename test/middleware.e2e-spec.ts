@@ -6,7 +6,7 @@ import * as http from 'http';
 import { dirname, join } from 'path';
 import * as request from 'supertest';
 
-import { grpcTranscoder } from '../src/grpc-transcoder';
+import { grpcTranscoder } from '../src';
 import { createGrpcServer } from './utils/create-grpc-server';
 import { createHttpServer } from './utils/create-http-server';
 
