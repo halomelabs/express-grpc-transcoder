@@ -1,0 +1,57 @@
+{
+  "name": "express-grpc-transcoder",
+  "version": "0.1.0",
+  "description": "gRPC-JSON transcoder middleware",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf ./dist && tsc",
+    "test": "jest --config ./test/jest-e2e.json",
+    "gen-types": "rimraf ./test/typings && proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --includeDirs=node_modules/google-proto-files --includeDirs=proto --outDir=test/typings ./proto/**/**/*.proto ./proto/**/**/**/*.proto"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/halomelabs/express-grpc-transcoder.git"
+  },
+  "keywords": [
+    "expressjs",
+    "middleware",
+    "grpc-gateway",
+    "grpc-transcoder",
+    "http-grpc",
+    "json-grpc"
+  ],
+  "author": "Hiep Thai <thaichanhiep@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/halomelabs/express-grpc-transcoder/issues"
+  },
+  "homepage": "https://github.com/halomelabs/express-grpc-transcoder#readme",
+  "devDependencies": {
+    "@grpc/grpc-js": "^1.7.0",
+    "@types/express": "^4.17.14",
+    "@types/jest": "^29.0.3",
+    "@types/lodash.camelcase": "^4.3.7",
+    "@types/lodash.get": "^4.4.7",
+    "@types/supertest": "^2.0.12",
+    "@typescript-eslint/eslint-plugin": "^5.38.0",
+    "eslint": "^8.23.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "express": "^4.18.1",
+    "google-proto-files": "^3.0.2",
+    "jest": "^29.0.3",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
+    "supertest": "^6.2.4",
+    "ts-jest": "^29.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "lodash.camelcase": "^4.3.0",
+    "lodash.get": "^4.4.2",
+    "protobufjs": "^7.1.1"
+  }
+}
