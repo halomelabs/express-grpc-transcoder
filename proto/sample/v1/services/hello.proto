@@ -28,4 +28,18 @@ service Hello {
       delete: "/v1/remove-user/{request_id}"
     };
   }
+
+  rpc Put (PutRequest) returns (PutResponse) {
+    option (google.api.http) = {
+      put: "/v1/put/{request_id}"
+      body: "*"
+    };
+  }
+
+  rpc Patch (PatchRequest) returns (PatchResponse) {
+    option (google.api.http) = {
+      patch: "/v1/patch/{request_id}"
+      body: "*"
+    };
+  }
 }

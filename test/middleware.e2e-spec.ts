@@ -66,6 +66,28 @@ describe('HelloService (e2e)', () => {
       });
   });
 
+  it('PUT request should return expected result', async () => {
+    const requestId = uuid();
+
+    return request(http)
+      .put(`/v1/put/${requestId}`)
+      .then(({ statusCode, body }) => {
+        expect(statusCode).toEqual(200);
+        expect(body).toEqual({ requestId, status: 'updated' });
+      });
+  });
+
+  it('PATCH request should return expected result', async () => {
+    const requestId = uuid();
+
+    return request(http)
+      .patch(`/v1/patch/${requestId}`)
+      .then(({ statusCode, body }) => {
+        expect(statusCode).toEqual(200);
+        expect(body).toEqual({ requestId, status: 'patched' });
+      });
+  });
+
   afterAll(async () => {
     http.close();
     grpc.forceShutdown();

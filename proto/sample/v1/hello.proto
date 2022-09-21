@@ -29,3 +29,21 @@ message RemoveUserResponse {
   string request_id = 1;
   bool success = 2;
 }
+
+message PutRequest {
+  string request_id = 1;
+}
+
+message PutResponse {
+  string request_id = 1;
+  string status = 2;
+}
+
+message PatchRequest {
+  string request_id = 1;
+}
+
+message PatchResponse {
+  string request_id = 1;
+  string status = 2;
+}

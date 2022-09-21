@@ -53,6 +53,7 @@ function convertRequestPayload(req: Request) {
       break;
     case 'POST':
     case 'PUT':
+    case 'PATCH':
       payload = { ...req.params, ...req.body };
       break;
     case 'DELETE':
@@ -139,6 +140,10 @@ export function grpcTranscoder(
           typeof httpRule.delete === 'string'
         ) {
           router.delete(convertUrl(httpRule.delete), genericHandler);
+        } else if ('put' in httpRule && typeof httpRule.put === 'string') {
+          router.put(convertUrl(httpRule.put), genericHandler);
+        } else if ('patch' in httpRule && typeof httpRule.patch === 'string') {
+          router.patch(convertUrl(httpRule.patch), genericHandler);
         }
       }
     }
